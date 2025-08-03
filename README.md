@@ -30,7 +30,7 @@ A modern Django-based Content Management System with a beautiful, responsive des
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/cronos-cms.git
+   git clone https://github.com/SubhankarDey11/Cronos_CMS_Django.git 
    cd cronos-cms
    ```
 
