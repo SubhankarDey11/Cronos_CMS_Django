@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ site_settings.site_name|default:"Cronos" }} - Home{% endblock %}
+
+{% block content %}
+    {% if hero_sections %}
+        {% for hero in hero_sections %}
+        <header class="section fullscreen image-background cover header d-flex align-items-end overflow-hidden parallax overlay overlay-3 alpha-9 b-b" 
+                style="background-image: url('{% if hero.background_image %}{{ hero.background_image.url }}{% else %}{% static 'img/bg/bubbles-light.jpg' %}{% endif %}');">
+            <div class="container text-center pb-0">
+                <h1 class="display-4 color-1 bold">{{ hero.title }}</h1>
+                <p class="lead mb-5 mb-lg-6 color-1">{{ hero.subtitle }}</p>
+            </div>
+        </header>
+        {% endfor %}
+    {% else %}
+        <!-- Default hero section when no content exists -->
+        <header class="section fullscreen image-background cover header d-flex align-items-end overflow-hidden parallax overlay overlay-3 alpha-9 b-b" 
+                style="background-image: url('{% static 'img/bg/professional.jpg' %}');">
+            <div class="container text-center pb-0">
+                <h1 class="display-4 color-1 bold">Welcome to Cronos</h1>
+                <!-- <p class="lead mb-5 mb-lg-6 color-1">Your Django CMS is ready! Add content through the admin panel.</p> -->
+                <a href="{% url 'admin:index' %}" class="btn btn-accent btn-lg">Go to Admin Panel</a>
+            </div>
+        </header>
+    {% endif %}
+
+    <section class="section features reasons bg-6 bg-6-gradient-start">
+        <div class="container">
+            <div class="section-heading text-center">
+                <h2 class="bold">Companies choose {{ site_settings.site_name|default:"Cronos" }} because</h2>
+            </div>
+
+            <div class="row text-center">
+                {% if features %}
+                    {% for feature in features %}
+                    <div class="col-md-4 py-4">
+                        {% if feature.icon %}
+                            <img src="{{ feature.icon.url }}" class="icon m-0" alt="">
+                        {% elif feature.icon_class %}
+                            <i class="{{ feature.icon_class }} icon m-0"></i>
+                        {% endif %}
+                        <h5 class="regular accent my-3">{{ feature.title }}</h5>
+                        <p class="my-0">{{ feature.description }}</p>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <!-- Default features when no content exists -->
+                    <div class="col-md-4 py-4">
+                        <i class="fa-check icon m-0"></i>
+                        <h5 class="regular accent my-3">Easy to Use</h5>
+                        <p class="my-0">Manage all your content through the admin panel.</p>
+                    </div>
+                    <div class="col-md-4 py-4">
+                        <i class="fa-mobile icon m-0"></i>
+                        <h5 class="regular accent my-3">Responsive Design</h5>
+                        <p class="my-0">Looks great on all devices and screen sizes.</p>
+                    </div>
+                    <div class="col-md-4 py-4">
+                        <i class="fa-cogs icon m-0"></i>
+                        <h5 class="regular accent my-3">Fully Customizable</h5>
+                        <p class="my-0">Easily customize colors, fonts, and layouts.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    {% if testimonials %}
+        {% for testimonial in testimonials %}
+        <section class="singl-testimonial bg-4 color-1">
+            <div class="container py-0">
+                <div class="row gap-y align-items-center">
+                    <div class="col-12 col-md-5 mr-md-auto singl-testimonial-text">
+                        <p class="lead bold mt-0 mb-4">{{ testimonial.content }}</p>
+                        <cite class="bold color-1 alpha-7">
+                            <span>{{ testimonial.name }},</span> {{ testimonial.position }}
+                        </cite>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endfor %}
+    {% endif %}
+{% endblock %} 

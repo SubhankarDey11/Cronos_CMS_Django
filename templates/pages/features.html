@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ site_settings.site_name|default:"Cronos" }} - Features{% endblock %}
+
+{% block content %}
+    <header class="page header bg-3 color-1">
+        <div class="container">
+            <h1 class="font-lg bold color-1">{{ site_settings.site_name|default:"Cronos" }} features</h1>
+            <p class="lead">Get ready to know your new template</p>
+        </div>
+    </header>
+
+    <section id="overview" class="section overview b-b">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-6">
+                    <h2 class="mb-0">
+                        Simple <span class="bold">HTML Template</span> for your next project
+                    </h2>
+
+                    <p class="lead">Showcase your Startup or Software in a beautiful way. No fancy skills required. No hassle.</p>
+
+                    <p>All you need to launch your website you'll find it with {{ site_settings.site_name|default:"Cronos" }}. We've included a full set of HTML design blocks to help you get started with your web design right away.</p>
+                </div>
+
+                <div class="col-12 col-lg-5 ml-lg-auto">
+                    <img src="{% static 'img/screens/section/1.png' %}" class="img-responsive" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section features reasons bg-6 bg-6-gradient-start">
+        <div class="container">
+            <div class="section-heading text-center">
+                <h2 class="bold">All the features you need</h2>
+            </div>
+
+            <div class="row text-center">
+                {% for feature in features %}
+                <div class="col-md-4 py-4">
+                    {% if feature.icon %}
+                        <img src="{{ feature.icon.url }}" class="icon m-0" alt="">
+                    {% elif feature.icon_class %}
+                        <i class="{{ feature.icon_class }} icon m-0"></i>
+                    {% endif %}
+                    <h5 class="regular accent my-3">{{ feature.title }}</h5>
+                    <p class="my-0">{{ feature.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %} 

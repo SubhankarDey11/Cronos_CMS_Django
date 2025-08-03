@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ site_settings.site_name|default:"Cronos" }} - Contact{% endblock %}
+
+{% block content %}
+    <header class="page header bg-3 color-1">
+        <div class="container">
+            <h1 class="font-lg bold color-1">Contact Us</h1>
+            <p class="lead">Get in touch with us</p>
+        </div>
+    </header>
+
+    <section class="section contact bg-6">
+        <div class="container">
+            <div class="row gap-y">
+                <div class="col-md-6">
+                    <h3>Send us a message</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                            <div class="text-danger">{{ form.name.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                            <div class="text-danger">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.subject }}
+                            {% if form.subject.errors %}
+                            <div class="text-danger">{{ form.subject.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.message }}
+                            {% if form.message.errors %}
+                            <div class="text-danger">{{ form.message.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-accent">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="col-md-6">
+                    <h3>Contact Information</h3>
+                    {% if contact_info %}
+                    <div class="contact-info">
+                        {% if contact_info.address %}
+                        <div class="info-item">
+                            <i class="fa-map-marker"></i>
+                            <p>{{ contact_info.address }}</p>
+                        </div>
+                        {% endif %}
+                        {% if contact_info.phone %}
+                        <div class="info-item">
+                            <i class="fa-phone"></i>
+                            <p>{{ contact_info.phone }}</p>
+                        </div>
+                        {% endif %}
+                        {% if contact_info.email %}
+                        <div class="info-item">
+                            <i class="fa-envelope"></i>
+                            <p>{{ contact_info.email }}</p>
+                        </div>
+                        {% endif %}
+                        {% if contact_info.website %}
+                        <div class="info-item">
+                            <i class="fa-globe"></i>
+                            <p>{{ contact_info.website }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %} 

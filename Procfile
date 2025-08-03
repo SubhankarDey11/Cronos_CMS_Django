@@ -1,0 +1,1 @@
+web: gunicorn cronos_project.wsgi --log-file - 

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ site_settings.site_name|default:"Cronos" }} - Pricing{% endblock %}
+
+{% block content %}
+    <header class="page header bg-3 color-1">
+        <div class="container">
+            <h1 class="font-lg bold color-1">Pricing plans</h1>
+            <p class="lead">Choose the plan that fits your needs</p>
+        </div>
+    </header>
+
+    <section class="section pricing bg-6">
+        <div class="container">
+            <div class="row gap-y">
+                {% for plan in pricing_plans %}
+                <div class="col-md-4">
+                    <div class="card {% if plan.is_popular %}border-accent{% endif %}">
+                        {% if plan.is_popular %}
+                        <div class="card-header text-center">
+                            <span class="badge badge-accent">Most Popular</span>
+                        </div>
+                        {% endif %}
+                        <div class="card-body text-center">
+                            <h4 class="card-title">{{ plan.name }}</h4>
+                            <div class="pricing-value">
+                                <span class="currency">{{ plan.currency }}</span>
+                                <span class="price">{{ plan.price }}</span>
+                                <span class="period">/{{ plan.period }}</span>
+                            </div>
+                            <p class="card-text">{{ plan.description }}</p>
+                            {% if plan.features %}
+                            <div class="features">
+                                {{ plan.features|safe }}
+                            </div>
+                            {% endif %}
+                            <a href="#" class="btn btn-rounded {% if plan.is_popular %}btn-accent{% else %}btn-outline{% endif %}">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %} 

@@ -1,0 +1,148 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge" /><![endif]-->
+    <title>{% block title %}{{ site_settings.site_name|default:"Cronos" }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ site_settings.site_description|default:"" }}{% endblock %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" href="{% if site_settings.favicon %}{{ site_settings.favicon.url }}{% else %}{% static 'apple-touch-icon.png' %}{% endif %}">
+    <link rel="icon" href="{% if site_settings.favicon %}{{ site_settings.favicon.url }}{% else %}{% static 'favicon.ico' %}{% endif %}">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/swiper.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+    <!-- < NAVIGATION WITH BACKGROUND COLOR NAVBAR >............................................ -->
+<!-- removed navbar-toggleable-md because responsive issues. Find out why ..... -->
+<nav class="navbar navbar-expand-md navigation fixed-top sidebar-left">
+    <div class="container">
+    <button class="navbar-toggler" type="button">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a href="{% url 'pages:home' %}" class="navbar-brand">
+        <img src="{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'img/llogo.png' %}{% endif %}" alt="{{ site_settings.site_name|default:'Cronos' }}" class="logo logo-sticky d-block d-md-none">
+        <img src="{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'img/logo.png' %}{% endif %}" alt="{{ site_settings.site_name|default:'Cronos' }}" class="logo d-none d-md-block">
+    </a>
+
+    <div class="collapse navbar-collapse ml-auto" id="main-navbar">
+        <div class="sidebar-brand">
+            <a href="{% url 'pages:home' %}">
+                <img src="{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'img/llogo.png' %}{% endif %}" alt="{{ site_settings.site_name|default:'Cronos' }} Template" class="logo">
+            </a>
+        </div>
+
+        <ul class="nav navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="{% url 'pages:home' %}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'pages:features' %}">Features</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'pages:pricing' %}">Pricing</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'contact:contact' %}">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'blog:post_list' %}">Blog</a></li>
+        </ul>
+
+        <nav class="nav navbar-nav ml-md-auto justify-content-center mt-4 mt-md-0 flex-row">
+            <a class="btn btn-rounded btn-outline mr-3 px-3" href="#">
+                <i class="fa-sign-in d-none d-md-inline mr-md-0 mr-lg-2"></i>
+                <span class="d-md-none d-lg-inline">Login</span>
+            </a>
+            <a class="btn btn-rounded btn-solid px-3" href="#">
+                <i class="fa-user-plus d-none d-md-inline mr-md-0 mr-lg-2"></i>
+                <span class="d-md-none d-lg-inline">Signup</span>
+            </a>
+        </nav>
+
+    </div>
+</div>
+
+</nav>
+
+<div class="nav-overlay bg-5 alpha-8 gradient"></div>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+    <!-- FOOTER -->
+<footer class="site-footer section b-t">
+    <div class="container pb-3">
+        <div class="row gap-y text-center text-md-left">
+            <div class="col-md-5 mr-auto">
+                <img src="{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'img/llogo.png' %}{% endif %}" alt="" class="icon-lg logo">
+
+                <p class="color-2 alpha-5">{{ site_settings.site_description|default:"Cronos, a carefully crafted and powerful HTML5 template, it's perfect to showcase your startup or software" }}</p>
+
+                <nav class="nav mt-3 color-3 justify-content-center justify-content-md-start">
+                    {% if site_settings.facebook_url %}
+                    <a class="nav-link pl-0" href="{{ site_settings.facebook_url }}"><i class="fa-facebook"></i></a>
+                    {% endif %}
+                    {% if site_settings.twitter_url %}
+                    <a class="nav-link" href="{{ site_settings.twitter_url }}"><i class="fa-twitter"></i></a>
+                    {% endif %}
+                    {% if site_settings.behance_url %}
+                    <a class="nav-link" href="{{ site_settings.behance_url }}"><i class="fa-behance"></i></a>
+                    {% endif %}
+                    {% if site_settings.instagram_url %}
+                    <a class="nav-link" href="{{ site_settings.instagram_url }}"><i class="fa-instagram"></i></a>
+                    {% endif %}
+                </nav>
+            </div>
+
+            <div class="col-md-2">
+                <h6 class="bold text-uppercase">Product</h6>
+
+                <nav class="nav flex-column mt-3">
+                    <a href="{% url 'pages:features' %}">Features</a>
+                    <a href="#" class="my-2">API</a>
+                    <a href="#" class="my-2">Support</a>
+                </nav>
+            </div>
+
+            <div class="col-md-2">
+                <h6 class="bold text-uppercase">Company</h6>
+
+                <nav class="nav flex-column mt-3">
+                    <a href="{% url 'blog:post_list' %}">Blog</a>
+                    <a href="{% url 'contact:contact' %}" class="my-2">Contact</a>
+                    <a href="#" class="my-2">Terms</a>
+                </nav>
+            </div>
+        </div>
+
+        <hr class="mt-5 bg-6">
+        <div class="row small align-items-center text-center text-md-left">
+            <div class="col-md-4">
+                <p class="mt-2 mb-0">{{ site_settings.footer_text|default:"© 2024 Cronos. All Rights Reserved" }}</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.easing.min.js' %}"></script>
+<script src="{% static 'js/aos.min.js' %}"></script>
+<script src="{% static 'js/swiper.min.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'js/forms.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+
+</body>
+</html> 
